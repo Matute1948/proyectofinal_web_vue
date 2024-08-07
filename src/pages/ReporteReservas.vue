@@ -1,14 +1,18 @@
 <template>
-  <div>
+  <div class="formulario-container">
     <h1>Reporte de Reservas</h1>
-    <form @submit.prevent="fetchReporteReservas">
-      <label for="fechaInicio">Fecha de Inicio:</label>
-      <input type="date" v-model="fechaInicio" required>
-      <label for="fechaFin">Fecha de Fin:</label>
-      <input type="date" v-model="fechaFin" required>
+    <form @submit.prevent="fetchReporteReservas" class="form-horizontal">
+      <div class="form-group">
+        <label for="fechaInicio">Fecha de Inicio:</label>
+        <input type="date" v-model="fechaInicio" required>
+      </div>
+      <div class="form-group">
+        <label for="fechaFin">Fecha de Fin:</label>
+        <input type="date" v-model="fechaFin" required>
+      </div>
       <button type="submit">Consultar</button>
     </form>
-    <div >
+    <div v-if="mostrarTabla" class="tabla-container">
       <h2>Resultados</h2>
       <table>
         <thead>
@@ -41,7 +45,7 @@
               <td>{{ reserva.cedulaCliente }}</td>
               <td>{{ reserva.valorSubtotal }}</td>
               <td>{{ reserva.valorIVA }}</td>
-              <td>{{ reserva.valorTotalAPagar }}</td>
+              <td class="valor-total">{{ reserva.valorTotalAPagar }}</td>
             </tr>
           </template>
           <template v-if="reservas.length === 0">
@@ -102,19 +106,75 @@ export default {
 </script>
 
 <style scoped>
-/* Estilo general para centrar el contenido */
-div {
-  text-align: center;
+.formulario-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-form {
+.formulario-container h1 {
+  text-align: center;
   margin-bottom: 20px;
+}
+
+.form-horizontal {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0;
+  flex: 1;
+}
+
+form button {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 1em;
+  background-color: #003366;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+form button:hover {
+  background-color: #002244;
+}
+
+form button:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: inline-block;
+  font-size: 1em;
+}
+
+input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.tabla-container {
+  overflow-x: auto;
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
-  margin: 20px auto;
+  margin: 20px 0;
   background-color: #f9f9f9;
 }
 
@@ -126,7 +186,7 @@ th, td {
 
 thead {
   background-color: #003366;
-  color: #fff;
+  color: white;
 }
 
 tbody tr:nth-child(even) {
@@ -134,23 +194,14 @@ tbody tr:nth-child(even) {
 }
 
 tbody tr:nth-child(odd) {
-  background-color: #ffffff;
+  background-color: white;
 }
 
 thead th {
   font-weight: bold;
 }
 
-button {
-  margin-left: 20px;
-  background-color: #003366;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #002244;
+.valor-total {
+  color: red;
 }
 </style>

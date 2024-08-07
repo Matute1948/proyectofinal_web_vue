@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <div class="formulario-container">
     <h1>Retirar Vehículo Reservado</h1>
     <form @submit.prevent="retirarVehiculo">
-      <label for="numReserva">Número de Reserva:</label>
-      <input type="text" v-model="numReserva" id="numReserva" required />
-      <button type="submit">Retirar</button>
+      <p><label for="numReserva">Número de Reserva:</label></p>
+      <p><input type="text" v-model="numReserva" id="numReserva" required /></p>
+      <p><button type="submit">Retirar</button></p>
     </form>
     <div v-if="mensaje">{{ mensaje }}</div>
   </div>
@@ -42,14 +42,66 @@ export default {
 </script>
 
 <style scoped>
-form {
-  display: flex;
-  flex-direction: column;
-  width: 300px;
-  margin: 20px auto;
+.formulario-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-label, input, button {
-  margin-bottom: 10px;
+.formulario-container h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.formulario-container p {
+  margin: 10px 0;
+}
+
+input,
+button {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 1em;
+  box-sizing: border-box;
+}
+
+input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: inline-block;
+  font-size: 1em;
+}
+
+div {
+  margin-top: 20px;
+  text-align: center;
+  color: red;
 }
 </style>
