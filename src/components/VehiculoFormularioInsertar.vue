@@ -28,11 +28,11 @@
       </div>
       <div class="form-group">
         <label>Avalúo:</label>
-        <input type="number" v-model="vehiculo.avaluo" required>
+        <input type="number" step="0.01" v-model="vehiculo.avaluo" required>
       </div>
       <div class="form-group">
         <label>Valor por día:</label>
-        <input type="number" v-model="vehiculo.valorPorDia" required>
+        <input type="number" step="0.01" v-model="vehiculo.valorPorDia" required>
       </div>
       <button type="submit">Insertar</button>
     </form>

@@ -30,6 +30,7 @@ export default {
 </script>
  
 <style scoped>
+
 .app-container {
   display: flex;
   flex-direction: column;
