@@ -1,7 +1,5 @@
 <template>
-    
     <div class="container">
-
         <div class="cliente-container">
             <div>
                 <label for="cedula">Cédula:</label>
@@ -36,53 +34,75 @@
         </div>
     </div>
 </template>
-
+ 
 <script>
 import { agregarFachada, actualizarFachada } from '@/clients/cliente.js';
+ 
 export default {
     data() {
         return {
             cliente: {
-                cedula: null,
-                nombre: null,
-                apellido: null,
-                fechaNacimiento: null,
-                genero: null
+                cedula: '',
+                nombre: '',
+                apellido: '',
+                fechaNacimiento: '',
+                genero: ''
             },
             mensaje: ''
         };
     },
     methods: {
         async agregarCliente() {
-            console.log(this.cliente.cedula);
-            const data = await agregarFachada(this.cliente);
-            console.log(data);
-            this.mensaje = 'Registro de cliente exitoso';
-
+            if (this.cliente.cedula.length !== 10) {
+                this.mensaje = 'La cédula debe tener 10 caracteres';
+                return;
+            }
+            try {
+                const data = await agregarFachada(this.cliente);
+                this.mensaje = 'Registro de cliente exitoso';
+                console.log(data);
+                this.reinicio();  // Vacía los campos después de un registro exitoso
+            } catch (error) {
+                this.mensaje = error.response.data;
+                console.error(error);
+            }
         },
         async actualizarCliente() {
-            const clienteBody =
-            {
-                nombre: this.cliente.nombre,
-                apellido: this.cliente.apellido,
-                fechaNacimiento: this.cliente.fechaNacimiento,
-                genero: this.cliente.genero,
-            };
-
-            const data = await actualizarFachada(this.cliente.cedula, clienteBody);
-            this.mensaje = 'Datos del cliente actualizados correctamente';
-            console.log(data);
-
+            if (this.cliente.cedula.length !== 10) {
+                this.mensaje = 'La cédula debe tener 10 caracteres';
+                return;
+            }
+            try {
+                const clienteBody = {
+                    nombre: this.cliente.nombre,
+                    apellido: this.cliente.apellido,
+                    fechaNacimiento: this.cliente.fechaNacimiento,
+                    genero: this.cliente.genero
+                };
+                const data = await actualizarFachada(this.cliente.cedula, clienteBody);
+                this.mensaje = 'Datos del cliente actualizados correctamente';
+                console.log(data);
+                this.reinicio();  // Vacía los campos después de una actualización exitosa
+            } catch (error) {
+                this.mensaje = error.response.data;
+                console.error(error);
+            }
         },
-
+        reinicio() {
+            this.cliente = {
+                cedula: '',
+                nombre: '',
+                apellido: '',
+                fechaNacimiento: '',
+                genero: ''
+            };
+        }
     }
-
 }
 </script>
-
+ 
 <style scoped>
 .container {
-
     max-width: 600px;
     margin: 20px auto;
     padding: 20px;
@@ -90,17 +110,16 @@ export default {
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-
+ 
 .cliente-container {
     padding: 20px;
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
-
+ 
 input,
 select {
-
     text-align-last: left;
     width: 100%;
     padding: 10px;
@@ -109,24 +128,22 @@ select {
     font-size: 1em;
     box-sizing: border-box;
 }
-
+ 
 input:focus,
 select:focus {
-
     outline: none;
     border-color: #007bff;
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
-
+ 
 select {
-
     height: 44px;
     appearance: none;
     background: url('data:image/svg+xml;charset=UTF-8,%3csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 5"%3e%3cpath fill="%23999" d="M2 0L0 2h4zm0 5L0 3h4z"/%3e%3c/svg%3e') no-repeat right 10px center;
     background-size: 10px;
     margin: 10px 10px;
 }
-
+ 
 label {
     text-align-last: left;
     font-weight: bold;
@@ -135,7 +152,7 @@ label {
     font-size: 1em;
     margin-top: 10px;
 }
-
+ 
 button {
     width: 100%;
     padding: 10px;
@@ -146,15 +163,8 @@ button {
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
-
-    display: grid;
-    margin-top: 10 px;
-    grid-template-columns: repeat(0, 5px);
-    grid-template-rows: 10px repeat(0, 5px);
-    padding: 15px;
-    border-radius: 25px;
 }
-
+ 
 button:hover {
     background-color: #0056b3;
 }

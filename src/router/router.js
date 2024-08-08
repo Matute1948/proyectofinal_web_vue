@@ -1,8 +1,7 @@
-
 import { createRouter, createWebHashHistory } from 'vue-router';
-
+ 
 import MenuInicio from '@/pages/MenuInicio.vue'
-
+ 
 import BienvenidaEmpleadoPage from '@/pages/BienvenidaEmpleadoPage.vue';
 import BienvenidaClientePage from '@/pages/BienvenidaClientePage.vue'
 import NotFoundPage from '@/pages/NotFOundPage.vue';
@@ -19,15 +18,16 @@ import EmpleadoActualizarVehiculoPage from '@/pages/EmpleadoActualizarVehiculoPa
 import ClienteActualizarPage from '@/pages/ClienteActualizarPage.vue';
 import ClienteRegistroPage from '@/pages/ClienteRegistroPage.vue';
 import BuscarVehiculosPage from '@/pages/BuscarVehiculosPage.vue';
-
+ 
 import ReservaPage from '@/pages/ReservaPage.vue'
 import PagoPage from '@/pages/PagoPage.vue'
-
+import NavBar from '@/components/NavBar.vue'
+ 
 const routes = [
   {
     path: '/',
     name: 'Bienvenida',
-    component: MenuInicio, 
+    component: MenuInicio,
   },
     {
         path: '/home/empleado',
@@ -68,23 +68,23 @@ const routes = [
         component:NotFoundPage
     },
     ,
-    { 
-        path: '/home/empleado/vehiculo/insertar', 
+    {
+        path: '/home/empleado/vehiculo/insertar',
         component: EmpleadoInsertarVehiculoPage
-        
+       
     },
-    { 
-        path: '/home/empleado/vehiculo/buscar', 
+    {
+        path: '/home/empleado/vehiculo/buscar',
         component: EmpleadoBuscarVehiculoPage
-
+ 
     },
-    { 
-        path: '/home/empleado/vehiculo/visualizar/:placa', 
+    {
+        path: '/home/empleado/vehiculo/visualizar/:placa',
         component: EmpleadoVisualizarVehiculoPage
     },
-    { 
-        path: '/home/empleado/vehiculo/actualizar/:placa', 
-        component: EmpleadoActualizarVehiculoPage 
+    {
+        path: '/home/empleado/vehiculo/actualizar/:placa',
+        component: EmpleadoActualizarVehiculoPage
     },
     {
         path: '/home/cliente/registro',
@@ -100,7 +100,7 @@ const routes = [
         path: '/home/cliente/buscar',
         component: BuscarVehiculosPage,
       },
-      
+     
       {
         path: '/home/cliente/reservacion',
         component: ReservaPage
@@ -109,17 +109,18 @@ const routes = [
         path: '/home/cliente/pago',
         component: PagoPage
       },
-    
+      
+   
 ]
-
+ 
 const router = createRouter({
     history: createWebHashHistory(),
     routes: routes,
 })
-
+ 
 export default router
-
-
-
-
+ 
+ 
+ 
+ 
 //--------------------------------

@@ -7,6 +7,13 @@
       <p><button type="submit">Retirar</button></p>
     </form>
     <div v-if="mensaje">{{ mensaje }}</div>
+    <div v-if="vehiculo">
+      <h2>Detalles del Vehículo</h2>
+      <p><strong>Marca:</strong> {{ vehiculo.marca }}</p>
+      <p><strong>Modelo:</strong> {{ vehiculo.modelo }}</p>
+      <p><strong>Placa:</strong> {{ vehiculo.placaVehiculo }}</p>
+      <p><strong>Estado:</strong> {{ vehiculo.estado }}</p>
+    </div>
   </div>
 </template>
 
@@ -17,8 +24,9 @@ export default {
   data() {
     return {
       numReserva: '',
-      mensaje: ''
-    }
+      mensaje: '',
+      vehiculo: null
+    };
   },
   methods: {
     async retirarVehiculo() {
@@ -28,17 +36,25 @@ export default {
 
         // Verificar la respuesta del servidor
         if (response.estado === 'E') {
-          this.mensaje = 'El retiro esta LISTO';
+          this.mensaje = 'El retiro está LISTO';
         } else {
           this.mensaje = 'Vehículo retirado con éxito';
         }
+
+        // Almacenar los detalles del vehículo en el estado
+        this.vehiculo = {
+          marca: response.marca,
+          modelo: response.modelo,
+          placaVehiculo: response.placaVehiculo,
+          estado: response.estado
+        };
       } catch (error) {
         console.error('Error al retirar vehículo Numero de Reserva Erroneo:', error);
-        this.mensaje = `Error al retirar su vehiculo, revise bien su ticket de RESERVA RES123...`;
+        this.mensaje = `Error al retirar su vehículo, revise bien su ticket de RESERVA RES123...`;
       }
     }
   }
-}
+};
 </script>
 
 <style scoped>
